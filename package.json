@@ -1,0 +1,37 @@
+{
+  "name": "packserve",
+  "version": "0.0.1",
+  "description": "Serve package tarballs over HTTP",
+  "main": "dist/cli.js",
+  "type": "module",
+  "bin": {
+    "packserve": "dist/cli.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsup"
+  },
+  "keywords": [],
+  "author": "Tat Dat Duong <david@duong.cz>",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^22.13.4",
+    "tslib": "^2.8.1",
+    "tsup": "^8.3.6",
+    "typescript": "^5.7.3"
+  },
+  "dependencies": {
+    "@clack/prompts": "^0.10.0",
+    "@commander-js/extra-typings": "^13.1.0",
+    "@hono/node-server": "^1.13.8",
+    "commander": "^13.1.0",
+    "execa": "^9.5.2",
+    "find-up-simple": "^1.0.0",
+    "glob": "^11.0.1",
+    "hono": "^4.7.1",
+    "package-manager-detector": "^0.2.9"
+  },
+  "files": [
+    "dist"
+  ]
+}
