@@ -30,7 +30,8 @@
     "find-up-simple": "^1.0.0",
     "glob": "^11.0.1",
     "hono": "^4.7.1",
-    "package-manager-detector": "^0.2.9"
+    "package-manager-detector": "^0.2.9",
+    "picocolors": "^1.1.1"
   },
   "files": [
     "dist"

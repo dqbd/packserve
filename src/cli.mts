@@ -8,6 +8,7 @@ import * as url from "node:url";
 import { promises as fs, createReadStream } from "node:fs";
 import { Readable } from "node:stream";
 import { findUp } from "find-up-simple";
+import pc from "picocolors";
 
 const program = new Command()
   .name("packserve")
@@ -25,7 +26,8 @@ program
       const packagesMap = {};
       for (const pkg of options.packages) {
         const cwd = path.resolve(process.cwd(), pkg);
-        console.log("Resolving", cwd);
+        process.stdout.write(`${pc.gray("Resolving")} ${cwd}\n`);
+
         const pkgJson = await findUp("package.json", { cwd });
         if (!pkgJson) throw new Error(`No package.json found for ${pkg}`);
         const pkgInfo = JSON.parse(await fs.readFile(pkgJson, "utf-8")) as {
@@ -48,15 +50,16 @@ program
     app.get("/:nonce/*", async (c) => {
       const nonce = c.req.param("nonce");
       const name = c.req.path.slice(`/${nonce}/`.length);
-      const output = await pack({
+      const result = await pack({
         name,
         nonce,
         cwd: packagesMap[name],
         target,
       });
 
+      if (result.success === false) throw result.error;
       return c.body(
-        Readable.toWeb(createReadStream(output)) as ReadableStream,
+        Readable.toWeb(createReadStream(result.data)) as ReadableStream,
         200,
         { "Content-Type": "application/gzip" }
       );
@@ -74,7 +77,18 @@ program
   .action(async (options) => {
     const pkgJson = await findUp("package.json", { cwd: process.cwd() });
     if (!pkgJson) throw new Error("No package.json found");
-    const pkg = JSON.parse(await fs.readFile(pkgJson, "utf-8"));
+
+    const oldOutput = await fs.readFile(pkgJson, "utf-8");
+    const pkg = JSON.parse(oldOutput);
+
+    const getTrailingNewline = (str: string) => {
+      if (str.endsWith("\r\n")) return "\r\n";
+      if (str.endsWith("\r")) return "\r";
+      if (str.endsWith("\n")) return "\n";
+      return "";
+    };
+
+    const oldTrailing = getTrailingNewline(oldOutput);
 
     const listReq = await fetch(`http://localhost:${options.port}/list`);
     if (!listReq.ok) throw new Error("Failed to list packages");
@@ -86,8 +100,12 @@ program
       const newUrl = `http://localhost:${options.port}/${nonce}/${name}`;
       pkg.resolutions[name] = newUrl;
     }
+    let newOutput = JSON.stringify(pkg, null, 2);
+    const newTrailing = getTrailingNewline(newOutput);
+    if (newTrailing) newOutput = newOutput.slice(0, -newTrailing.length);
+    newOutput += oldTrailing;
 
-    await fs.writeFile(pkgJson, JSON.stringify(pkg, null, 2));
+    await fs.writeFile(pkgJson, newOutput);
   });
 
 program.parse();
