@@ -1,0 +1,14 @@
+{
+  "name": "@myorg/scoped-package",
+  "version": "3.0.0-beta.1",
+  "description": "A test scoped package for testing scoped package resolution",
+  "main": "lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/myorg/scoped-package.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
+
