@@ -1,0 +1,19 @@
+{
+  "name": "package-with-deps",
+  "version": "2.1.0",
+  "description": "A test package with dependencies",
+  "main": "dist/index.js",
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "express": "^4.18.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "vitest": "^1.0.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest"
+  }
+}
+
