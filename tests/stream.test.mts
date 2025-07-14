@@ -59,7 +59,7 @@ describe("Stream processing utilities", () => {
       
       // Test that buffering works correctly (which uses joinArrays internally)
       const input1 = stringToUint8Array("Hello ");
-      const input2 = stringToUint8Array("World
+      const input2 = stringToUint8Array("World\n");
       
       const inputStream = createReadableFromChunks([input1, input2]);
       const outputStream = inputStream.pipeThrough(decoder);
@@ -454,4 +454,5 @@ describe("Stream processing utilities", () => {
     });
   });
 });
+
 
