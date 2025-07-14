@@ -368,9 +368,9 @@ describe("CLI functionality", () => {
         
         const oldOutput = await fs.readFile(testPackageJson, "utf-8");
         const getTrailingNewline = (str: string) => {
-          if (str.endsWith("\r
-          if (str.endsWith("\\r")) return "\\r";
-          if (str.endsWith("\\n")) return "\\n";
+          if (str.endsWith("\r\n")) return "\r\n";
+          if (str.endsWith("\r")) return "\r";
+          if (str.endsWith("\n")) return "\n";
           return "";
         };
         
@@ -380,5 +380,6 @@ describe("CLI functionality", () => {
     });
   });
 });
+
 
 
