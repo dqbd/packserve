@@ -277,7 +277,7 @@ describe("CLI functionality", () => {
         version: "1.0.0",
         dependencies: {},
       };
-      await fs.writeFile(testPackageJson, JSON.stringify(initialPackage, null, 2) + "
+      await fs.writeFile(testPackageJson, JSON.stringify(initialPackage, null, 2) + "\n");
       
       // Mock findUp to return our test package.json
       (findUp as any).mockResolvedValue(testPackageJson);
@@ -311,7 +311,7 @@ describe("CLI functionality", () => {
       }
       
       // Write updated package.json
-      const newOutput = JSON.stringify(pkg, null, 2) + "
+      const newOutput = JSON.stringify(pkg, null, 2) + "\n";
       await fs.writeFile(testPackageJson, newOutput);
       
       // Verify the changes
@@ -332,7 +332,7 @@ describe("CLI functionality", () => {
           "existing-package": "1.0.0",
         },
       };
-      await fs.writeFile(testPackageJson, JSON.stringify(initialPackage, null, 2) + "
+      await fs.writeFile(testPackageJson, JSON.stringify(initialPackage, null, 2) + "\n");
 
       // Simulate bump command logic
       const oldOutput = await fs.readFile(testPackageJson, "utf-8");
@@ -347,7 +347,7 @@ describe("CLI functionality", () => {
         pkg.resolutions[name] = newUrl;
       }
       
-      const newOutput = JSON.stringify(pkg, null, 2) + "
+      const newOutput = JSON.stringify(pkg, null, 2) + "\n";
       await fs.writeFile(testPackageJson, newOutput);
       
       // Verify existing resolution is preserved
@@ -360,7 +360,7 @@ describe("CLI functionality", () => {
 
     it("should preserve trailing newlines in package.json", async () => {
       // Test different newline formats
-      const testCases = ["
+      const testCases = ["\n", "\r\n", "\r", ""];
       
       for (const trailing of testCases) {
         const content = JSON.stringify({ name: "test" }, null, 2) + trailing;
@@ -369,8 +369,8 @@ describe("CLI functionality", () => {
         const oldOutput = await fs.readFile(testPackageJson, "utf-8");
         const getTrailingNewline = (str: string) => {
           if (str.endsWith("\r
-          if (str.endsWith("\r")) return "\r";
-          if (str.endsWith("
+          if (str.endsWith("\\r")) return "\\r";
+          if (str.endsWith("\\n")) return "\\n";
           return "";
         };
         
@@ -380,4 +380,5 @@ describe("CLI functionality", () => {
     });
   });
 });
+
 
