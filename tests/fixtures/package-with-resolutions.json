@@ -1,0 +1,20 @@
+{
+  "name": "package-with-resolutions",
+  "version": "1.5.0",
+  "description": "A test package with existing resolutions",
+  "main": "index.js",
+  "dependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  },
+  "resolutions": {
+    "lodash": "4.17.21",
+    "http://localhost:3123/12345/test-package": "file:test-package-12345.tgz",
+    "existing-package": "2.0.0"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "build": "webpack"
+  }
+}
+
