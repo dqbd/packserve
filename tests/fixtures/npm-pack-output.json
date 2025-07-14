@@ -1,0 +1,16 @@
+[
+  {
+    "name": "test-package",
+    "version": "1.2.3",
+    "filename": "test-package-1.2.3.tgz",
+    "files": [
+      { "path": "package.json" },
+      { "path": "README.md" },
+      { "path": "src/index.js" },
+      { "path": "src/utils.js" },
+      { "path": "dist/index.js" },
+      { "path": "dist/utils.js" }
+    ]
+  }
+]
+
