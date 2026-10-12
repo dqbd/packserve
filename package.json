@@ -22,14 +22,13 @@
     "typescript": "^5.7.3"
   },
   "dependencies": {
-    "@clack/prompts": "^0.10.0",
     "@commander-js/extra-typings": "^13.1.0",
-    "@hono/node-server": "^1.13.8",
+    "@hono/node-server": "^2.1.4",
     "commander": "^13.1.0",
     "execa": "^9.5.2",
     "find-up-simple": "^1.0.0",
     "glob": "^11.0.1",
-    "hono": "^4.7.1",
+    "hono": "^4.13.13",
     "package-manager-detector": "^0.2.9",
     "picocolors": "^1.1.1"
   },
